@@ -23,7 +23,7 @@
     color: var(--text);
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 19px;
-    line-height: 2;
+    line-height: 1.7;
     min-height: 100vh;
   }
   .cover {
@@ -170,13 +170,29 @@
     text-align: center;
     padding: 0 2rem 4rem;
   }
+  /* Visuelle Kapitel-Identität — Akzentfarbe pro Geschichte */
+  #geschichte1  { --accent: #d4a560; }  /* Entfacht — Rotgold */
+  #geschichte2  { --accent: #b56878; }  /* Entfesselt — Burgunder */
+  #geschichte3  { --accent: #d49058; }  /* Entblößt — Bernstein */
+  #geschichte4  { --accent: #8ca8b8; }  /* Entgrenzt — Eisblau-Grau */
+  #geschichte5  { --accent: #c08090; }  /* Entdeckt — Tiefes Rosé */
+  #geschichte6  { --accent: #a89060; }  /* Ergeben — Schwarzgold */
+  #geschichte7  { --accent: #d4bc88; }  /* Entspannt — Sandgold */
+  #geschichte8  { --accent: #e0a858; }  /* Ertappt — Sonnen-Bernstein */
+  #geschichte9  { --accent: #7898c0; }  /* Enthüllt — Mitternachtsblau */
+  #geschichte10 { --accent: #d4b888; }  /* Erforscht — Champagner */
+  #geschichte11 { --accent: #c06058; }  /* Erbeutet — Tiefes Rot */
+  #geschichte12 { --accent: #a8a8a8; }  /* Eingenommen — Stahlgrau */
+  #geschichte13 { --accent: #e0bc70; }  /* Entflammt — Sommerbernstein */
+  #geschichte14 { --accent: #c0b088; }  /* Empfangen — Mattes Silber-Gold */
+
   .chapter-label {
     font-family: 'Raleway', sans-serif;
     font-weight: 300;
     font-size: 0.7rem;
     letter-spacing: 0.5rem;
-    color: var(--gold);
-    opacity: 0.6;
+    color: var(--accent, var(--gold));
+    opacity: 0.8;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
   }
@@ -210,7 +226,7 @@
   .chapter-divider {
     width: 80px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent, var(--gold)), transparent);
     margin: 2rem auto 0;
   }
   .story {
@@ -219,7 +235,9 @@
     margin: 0 auto;
   }
   .story p {
-    margin-bottom: 1.3rem;
+    font-size: 1.1rem;
+    line-height: 1.65;
+    margin-bottom: 1.6rem;
     font-weight: 300;
     color: var(--text);
   }
@@ -231,8 +249,8 @@
   }
   .story .section-break {
     text-align: center;
-    color: var(--gold);
-    opacity: 0.5;
+    color: var(--accent, var(--gold));
+    opacity: 0.7;
     margin: 2.5rem 0;
     letter-spacing: 0.5rem;
     font-size: 0.9rem;
@@ -279,10 +297,49 @@
     font-style: normal;
   }
   .story-end .heart {
-    color: var(--gold);
+    color: var(--accent, var(--gold));
     font-size: 1.5rem;
     margin-top: 1rem;
     display: block;
+    cursor: pointer;
+    opacity: 0.5;
+    animation: heartPulseDark 3.2s ease-in-out infinite;
+    transition: opacity 0.4s ease, transform 0.3s ease, text-shadow 0.5s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .story-end .heart:hover {
+    opacity: 1;
+  }
+  .story-end .heart.favorited {
+    opacity: 1;
+    animation: none;
+    text-shadow: 0 0 12px var(--accent, var(--gold));
+  }
+  .story-end .heart.just-favorited {
+    animation: heartPop 0.6s ease-out;
+  }
+  /* Nacht-Modus (Standard) — dezenteres Pulsieren */
+  @keyframes heartPulseDark {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.06); }
+  }
+  /* Tag-Modus — auffälligeres Pulsieren für Tageslicht */
+  @keyframes heartPulseLight {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.10); }
+  }
+  @media (prefers-color-scheme: light) {
+    .story-end .heart {
+      opacity: 0.4;
+      animation: heartPulseLight 2.8s ease-in-out infinite;
+    }
+  }
+  @keyframes heartPop {
+    0%   { transform: scale(1); text-shadow: 0 0 0 var(--accent, var(--gold)); }
+    30%  { transform: scale(1.4); text-shadow: 0 0 24px var(--accent, var(--gold)); }
+    100% { transform: scale(1); text-shadow: 0 0 12px var(--accent, var(--gold)); }
   }
   .book-footer {
     text-align: center;
@@ -332,9 +389,9 @@
   .preface p, .afterword p {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.15rem;
-    line-height: 1.85;
+    line-height: 1.65;
     color: var(--text);
-    margin: 0 0 1.4rem 0;
+    margin: 0 0 1.6rem 0;
     text-align: left;
   }
   .preface .signature, .afterword .signature {
@@ -347,7 +404,7 @@
   @media (max-width: 480px) {
     .preface, .afterword { padding: 2.5rem 1.4rem; }
     .preface-title, .afterword-title { font-size: 1.6rem; }
-    .preface p, .afterword p { font-size: 1.05rem; }
+    .preface p, .afterword p { font-size: 1.1rem; }
   }
   .scroll-top {
     position: fixed;
@@ -370,7 +427,7 @@
   }
   .scroll-top:hover { opacity: 1; }
   @media (max-width: 480px) {
-    body { font-size: 18px; }
+    body { font-size: 19px; }
     .story { padding: 0 1.4rem; }
     .cover-title { font-size: 2.4rem; }
   }
@@ -501,6 +558,7 @@
         trackEvent('Login_Erfolgreich');
       }
       setupEventTracking();
+      setupHearts();
     } else {
       errorEl.classList.add('visible');
       document.getElementById('password-input').value = '';
@@ -652,6 +710,10 @@
           if (currentTotal >= MIN_READ_TIME) {
             state.completed = true;
             trackEvent('Geschichte_Komplett_' + chapterTitles[chapter.id]);
+            // Spezial-Event wenn das Nachwort komplett gelesen wurde
+            if (chapter.id === 'nachwort') {
+              trackEvent('Buch_Beendet');
+            }
           }
         }
       });
@@ -702,11 +764,89 @@
     window.addEventListener('beforeunload', sendFinalTimes);
   }
   
+  // === Klickbares Herz ===
+  function getFavorites() {
+    try {
+      return JSON.parse(localStorage.getItem('vn-favorites') || '[]');
+    } catch (e) {
+      return [];
+    }
+  }
+  
+  function setFavorites(arr) {
+    try {
+      localStorage.setItem('vn-favorites', JSON.stringify(arr));
+    } catch (e) {}
+  }
+  
+  function sendHeartNotification(chapterId) {
+    const title = chapterTitles[chapterId] || chapterId;
+    const now = new Date();
+    const timestamp = now.toLocaleString('de-DE', {
+      dateStyle: 'full',
+      timeStyle: 'medium',
+      timeZone: 'Europe/Zurich'
+    });
+    const data = {
+      access_key: 'dbd9669d-c2bb-4e90-9ad3-3788e6cf026a',
+      subject: '♥ Sie hat eine Geschichte geherzt',
+      from_name: 'Valeries Nächte',
+      message: `Geherzt: ${title}\n\nZeitpunkt: ${timestamp}`
+    };
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(() => {});
+  }
+  
+  function setupHearts() {
+    const favorites = getFavorites();
+    
+    document.querySelectorAll('.story-end .heart').forEach(heart => {
+      const chapter = heart.closest('.chapter');
+      if (!chapter || !chapter.id) return;
+      const chapterId = chapter.id;
+      
+      // Status aus LocalStorage wiederherstellen (kein Aufleuchten, nur Status)
+      if (favorites.includes(chapterId)) {
+        heart.classList.add('favorited');
+        heart.textContent = '♥';
+      }
+      
+      heart.addEventListener('click', () => {
+        const currentFavorites = getFavorites();
+        const isFav = heart.classList.contains('favorited');
+        
+        if (isFav) {
+          // Un-herzen — keine Notification, kein Tracking
+          heart.classList.remove('favorited');
+          heart.textContent = '♡';
+          setFavorites(currentFavorites.filter(id => id !== chapterId));
+        } else {
+          // Herzen — mit Aufleuchten-Animation, Notification, Tracking
+          heart.classList.add('favorited', 'just-favorited');
+          heart.textContent = '♥';
+          setTimeout(() => heart.classList.remove('just-favorited'), 600);
+          if (!currentFavorites.includes(chapterId)) {
+            currentFavorites.push(chapterId);
+            setFavorites(currentFavorites);
+          }
+          sendHeartNotification(chapterId);
+          if (chapterTitles[chapterId]) {
+            trackEvent('Geherzt_' + chapterTitles[chapterId]);
+          }
+        }
+      });
+    });
+  }
+  
   // Auto-unlock if already entered in this session
   if (sessionStorage.getItem('vn-unlocked') === 'true') {
     document.getElementById('lock-screen').classList.add('unlocked');
     document.getElementById('book-content').classList.add('unlocked');
     setupEventTracking();
+    setupHearts();
   }
 </script>
 
@@ -858,7 +998,7 @@
     <p>Seine Stimme war tief. Nicht aufdringlich – einfach tief, wie etwas, das aus dem Boden kommt.</p>
     <p><span class="dialogue">„Nein", sagte sie.</span></p>
     <p><span class="dialogue">„Gut." Er rückte einen Hocker näher. „Ich auch nicht."</span></p>
-    <p>Sein Name war Marcus. Er war für zwei Nächte in der Stadt – Konferenz, Hotelzimmer, keine Pläne für den Abend. Er fragte sie nach ihr, und was Valerie überraschte: Er hörte wirklich zu. Nickte an den richtigen Stellen. Lachte, wenn sie witzig war – echtes Lachen, das seine Augen miterfasste.</p>
+    <p>Sein Name war Marcus. Er restaurierte alte Drucke — eine Konferenz hatte ihn für zwei Nächte in die Stadt gebracht. Lederbände, Goldschnitt, sagte er, fast wie eine Entschuldigung. Hotelzimmer, keine Pläne für den Abend. Er fragte sie nach ihr, und was Valerie überraschte: Er hörte wirklich zu. Nickte an den richtigen Stellen. Lachte, wenn sie witzig war – echtes Lachen, das seine Augen miterfasste.</p>
     <p>Irgendwann bestellten sie eine zweite Runde. Dann eine dritte.</p>
     <p>Sie dachte kurz an Matthias – daran, wie er ihr diesen Abend geschenkt hatte, wie er ihr erlaubt hatte, einfach Valerie zu sein, frei und ohne Erwartungen. Das wärmte sie von innen, anders als der Wein.</p>
 
@@ -875,6 +1015,7 @@
     <div class="section-break">✦</div>
 
     <p>Im Aufzug seines Hotels standen sie nebeneinander – nicht berührend, aber die Spannung zwischen ihnen war physisch, fast greifbar. Valerie spürte jeden Herzschlag tief unten, jedes Pochen ihrer Pussy, die wollte, was noch kommen würde.</p>
+    <p>Aber etwas in ihr stand auch still – ein leiser, klarer Punkt mitten im Pochen. Sie hatte das nie getan. Nicht so. Nicht mit einem Fremden, dessen Namen sie eine Stunde kannte. Sie hätte zurück gekonnt. Sie ging nicht zurück.</p>
     <p>Die Aufzugtür öffnete sich.</p>
 
     <div class="section-break">✦</div>
@@ -961,7 +1102,7 @@
     <p>Und dann spürte sie die Wärme auf ihrer Haut – pulsierend, in Wellen, heiß. Sein Sperma, das auf ihrem Po und ihren Schenkeln landete, warm und unübersehbar.</p>
     <p>Sie schloss die Augen. Ließ es geschehen.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Später lagen sie nebeneinander, die Jalousien malten schmale Streifen Licht an die Decke.</p>
     <p>Valerie spürte ihren Körper wie nach einem langen Rennen – erschöpft, warm, vollkommen ruhig.</p>
@@ -969,7 +1110,7 @@
     <p>Lächelte.</p>
     <p>Und schlief ein.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie wusste nicht, wie lange sie geschlafen hatte.</p>
     <p>Vielleicht eine Stunde. Vielleicht zwanzig Minuten. Das Licht durch die Jalousien hatte sich nicht verändert – noch immer diese orangefarbenen Streifen, die Schatten über die Decke malten.</p>
@@ -1011,10 +1152,10 @@
     <p>Sie war vollständig in seiner Hand. Und sie wollte nirgendwo anders sein.</p>
     <p>Sie spürte ihre Pussy pochen. Spürte wie ihr Saft frei lief. Spürte wie sie ihn wollte – wieder, sofort, ohne Filter, ohne Barriere.</p>
     <p>Sie wusste es bevor er es sagte. Sie hatten beide gewusst dass das letzte Kondom benutzt war. Hatten beide den Moment hinausgeschoben wo sie es ansprechen mussten. Aber jetzt – jetzt war kein Hinausschieben mehr möglich.</p>
-    <p>Schließlich glitt er nach unten. Griff in ihr Haar.</p>
-    <p><span class="dialogue">„Kein Kondom mehr", sagte er.</span></p>
-    <p>Sie wusste es. Hatte es gewusst, seit sie das letzte benutzt hatten. Ihr Kopf sagte ihr, dass das unklug war – dass das nicht abgesprochen war, dass sie hätte stoppen sollen.</p>
-    <p>Aber sie konnte nicht mehr klar denken. Sie wollte ihn. Jetzt. So.</p>
+    <p>Er hielt inne. Sah sie an.</p>
+    <p><span class="dialogue">„Kein Kondom mehr."</span></p>
+    <p>Es war keine Feststellung, kein Befehl. Eine Frage, die er nicht aussprach. Er wartete.</p>
+    <p>Ihr Kopf sagte ihr, dass das unklug war – dass das nicht abgesprochen war, dass sie hätte stoppen sollen. Aber sie konnte nicht mehr klar denken. Sie wollte ihn. Jetzt. So.</p>
     <p><span class="dialogue">„Ich weiß", flüsterte sie. „Ich will dich trotzdem."</span></p>
     <p>Er drückte seine Eichel gegen ihre Pussy – wartete einen Moment.</p>
     <p>Dann drang er in sie ein – ohne Barriere, zum ersten Mal – und Valerie schrie auf. Die Wärme seines Schwanzes, die Unmittelbarkeit, das Gefühl von Haut auf Haut, so direkt und roh und heiß, dass ihr Verstand für einen Moment vollständig aussetzte. Sie spürte jede Bewegung, jeden Zentimeter von ihm – ungefiltert, ungeschützt, nur er und sie.</p>
@@ -1050,6 +1191,7 @@
 
     <p>Er zog sich langsam zurück – und sie spürte sein Sperma, das warm und träge aus ihr herauslief. Seine Finger glitten langsam durch ihre Pussy, sammelten seinen Saft – und begannen dann, ihren Po zu erkunden. Kreisten sanft aber bestimmt um ihren Anus, nutzten sein Sperma als Gleitmittel. Immer wieder dieselbe geduldige Bewegung, der Druck der nachließ und wiederkehrte.</p>
     <p>Sie verstand, was er wollte.</p>
+    <p>Sie hielt einen Moment inne. Spürte, was er fragte, ohne zu fragen. Es war das Zweite an diesem Abend, das nicht abgesprochen war. Sie atmete aus. Schob sich kaum merklich ihm entgegen.</p>
     <p><span class="dialogue">„Langsam", sagte sie leise.</span></p>
     <p><span class="dialogue">„Immer", antwortete er.</span></p>
     <p>Er bereitete sie sorgfältig vor – ein Finger erst, dann zwei, kreisten, drangen vor, warteten auf ihr Atmen und ihr Loslassen. Bis die Anspannung sich langsam in etwas anderes verwandelte.</p>
@@ -1075,7 +1217,7 @@
     <p>Sie dachte an Matthias.</p>
     <p>Bald.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Das Taxi brauchte zwanzig Minuten.</p>
     <p>Sie saß auf dem Rücksitz, das Kleid zerknittert, das Haar unordentlich. Die Stadt zog draußen vorbei – Straßenlaternen, leere Kreuzungen, der frühe Morgen der noch wie Nacht aussah.</p>
@@ -1135,7 +1277,7 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
@@ -1238,7 +1380,7 @@
     <p><span class="dialogue">„Ich gehe mit dir", sagte sie einfach.</span></p>
     <p>Er nickte. Ruhig. Als hätte er es gewusst.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Das Taxi durch die nächtliche Stadt.</p>
     <p>Sie saßen nebeneinander – zunächst. Aber der Abstand zwischen ihnen war geladen wie die Luft vor einem Gewitter.</p>
@@ -1353,7 +1495,7 @@
     <p><span class="dialogue">„Schlafzimmer", sagte sie leise.</span></p>
     <p>Er lächelte. Und nahm ihre Hand.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Diesmal war es anders.</p>
     <p>Die Wildheit des Flurs wich etwas anderem – langsamer, tiefer, bewusster. Er legte sie aufs Bett und kniete über ihr. Ließ sich Zeit. Seine Hände die über ihren Körper glitten.</p>
@@ -1404,14 +1546,14 @@
     <p>Dann – er beugte sich zu ihr herunter. Küsste sie langsam, tief. Sein Mund auf ihrem, sein Sperma noch auf ihren Lippen. Ein Küssen das nach der ganzen Nacht schmeckte.</p>
     <p>Sie küssten sich lange.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Später lagen sie nebeneinander. Irgendwo draußen begann der frühe Morgen.</p>
     <p>Valerie spürte ihren Körper – erschöpft, warm, vollkommen erfüllt. Sie fühlte sich gesehen. Vollständig gesehen.</p>
     <p>Sie dachte an Matthias.</p>
     <p>Bald.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Das Taxi in der Morgendämmerung.</p>
     <p>Sie saß auf dem Rücksitz, das Kleid leicht zerknittert, das Haar unordentlich. Die Stadt erwachte langsam – erste Lieferwagen, ein Bäcker der seine Tür aufschloss, Straßenlaternen die noch brannten obwohl es schon hell wurde.</p>
@@ -1480,7 +1622,7 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
@@ -1535,7 +1677,7 @@
     <p>Und dann – Valeries Hand auf seinem Arm. Ein leichter Druck.</p>
     <p>Er folgte ihrem Blick.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er betrat den Raum und alles veränderte sich.</p>
     <p>Matthias sah ihn sofort – es war unmöglich ihn nicht zu sehen. Groß. Sehr groß. Ein Körper der von jemandem gemeißelt schien – breite Schultern, schmale Hüften, Muskeln die sich unter dunkler Haut abzeichneten mit jeder ruhigen Bewegung. Er trug nur eine schwarze Hose und eine Maske die seine linke Gesichtshälfte bedeckte. Dunkel, strukturiert, geheimnisvoll. Der Rest seines Gesichts – ein starker Kiefer, volle Lippen, ruhige Augen die den Raum erfassten ohne zu suchen.</p>
@@ -1662,7 +1804,7 @@
     <p>Sie drehte sich zu Idris.</p>
     <p><span class="dialogue">„Ja."</span></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Der hintere Raum war anders.</p>
     <p>Wärmer. Dunkler. Vorhänge die Intimität andeuteten ohne sie herzustellen. Breite Sofas, weiches Licht, andere Paare in ihren eigenen Welten versunken.</p>
@@ -1857,14 +1999,14 @@
     <p>Die Angst – weg. Die Unsicherheit – weg.</p>
     <p>Nur noch das. Nur noch sie. Nur noch dieser Moment.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er löste sich vom Kuss. Beugte sich zu ihrem Ohr.</p>
     <p><span class="dialogue">„Du gehörst mir", flüsterte er. „Auch jetzt. Immer."</span></p>
     <p>Sie drehte sich zu ihm. Erschöpft. Strahlend. Seine.</p>
     <p><span class="dialogue">„Ich weiß", sagte sie leise. „Ich weiß."</span></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie saß noch auf ihm.</p>
     <p>Spürte seinen Schwanz in ihr – noch hart, pulsierend, warm. Ihr Körper der erschöpft war und gleichzeitig mehr wollte.</p>
@@ -1970,7 +2112,7 @@
     <p>Sah ihm dabei tief in die Augen – verführerisch, ruhig, vollständig in Kontrolle.</p>
     <p>Leckte den Finger langsam ab. Ließ ihn zuschauen. Der salzige Geschmack ihres Triumphes auf der Zunge.</p>
 
-    <div class="section-break">❖</div>
+    <div class="section-break">✦</div>
 
     <p>Er schluckte.</p>
     <p>Und dann küsste sie ihn.</p>
@@ -2001,7 +2143,7 @@
     <p>Und lächelte.</p>
     <p>Sie lächelte zurück.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er half ihr auf.</p>
     <p>Ihre Beine die noch zitterten. Seine Hände die sie stützten. Er zog sein Jackett aus – legte es ihr um die Schultern.</p>
@@ -2033,12 +2175,12 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
 
-<!-- GESCHICHTE 5 -->
+<!-- GESCHICHTE 4 -->
 <div class="chapter" id="geschichte4">
   <div class="chapter-header">
     <p class="chapter-label">Kapitel IV</p>
@@ -2128,7 +2270,7 @@
     <p>Atmete einmal tief.</p>
     <p>Und ging zurück hinein.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Das Hotel war eines dieser alten Frankfurter Häuser am Mainufer – hohe Decken, schweres Holz, der Geruch von Leder und Bienenwachs. Die Suite im vierten Stock hatte eine Terrasse die auf den Fluss zeigte.</p>
     <p>Søren öffnete die Minibar. <span class="dialogue">„Noch einen?"</span></p>
@@ -2209,7 +2351,7 @@
     <p>Arlo der den Kopf hob. Sein Gesicht feucht. Seine Augen die sie ansahen.</p>
     <p><span class="dialogue">„Wir fangen gerade erst an"</span>, sagte er leise.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Stimmung kippte unmerklich.</p>
     <p>Kein Wort. Keine Absprache. Nur eine Veränderung in der Art wie sie sich bewegten – ruhiger wurde schneller, zärtlicher wurde drängender.</p>
@@ -2317,7 +2459,7 @@
     <p>Tippte mit zitternden Fingern:</p>
     <p><span class="dialogue">„Ich auch. Ich erzähle dir alles. Ich liebe dich."</span></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Stille danach war anders als alles was sie kannte.</p>
     <p>Keine Worte. Kein Lärm. Nur die drei Körper die langsam zur Ruhe kamen – Atem der sich verlangsamte, Herzen die ruhiger wurden.</p>
@@ -2338,7 +2480,7 @@
     <p><span class="dialogue">„War schön"</span>, sagte er leise.</p>
     <p><span class="dialogue">„Ja"</span>, sagte sie. <span class="dialogue">„Das war es."</span></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Das Taxi roch nach Vanille und Leder.</p>
     <p>Frankfurt draußen – die Nacht die immer noch lebte, die Lichter die sich im nassen Asphalt spiegelten. Die Mainbrücke die unter ihnen auftauchte.</p>
@@ -2353,7 +2495,7 @@
     <p>Und lehnte sich gegen das Fenster.</p>
     <p class="thought"><em>Ich liebe dich</em>, dachte sie. <em>Ich komme.</em></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Wohnungstür.</p>
     <p>Er stand im Flur – barfuß, sein Haar unordentlich, seine Augen die sie sofort erfassten.</p>
@@ -2418,13 +2560,13 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
 
 
-<!-- GESCHICHTE 6 -->
+<!-- GESCHICHTE 5 -->
 <div class="chapter" id="geschichte5">
   <div class="chapter-header">
     <p class="chapter-label">Kapitel V</p>
@@ -2443,7 +2585,7 @@
     <p>Sie lehnte sich zurück gegen ihn. Schloss kurz die Augen. Ließ die Musik durch sich hindurch.</p>
     <p class="thought"><em>Das hier ist gut</em>, dachte sie.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Dann – eine Stimme neben ihr.</p>
     <p><span class="dialogue">„Kennst du die?"</span></p>
@@ -2555,7 +2697,7 @@
     <p>Ihre Augen trafen sich.</p>
     <p><span class="dialogue">„Ich glaube"</span>, flüsterte Valerie Séraphine zu, <span class="dialogue">„wir sollten gehen."</span></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie fanden Matthias am Rand der Tanzfläche.</p>
     <p>Er schaute sie an – Valerie zuerst, dann Séraphine, dann wieder Valerie. Sein Blick der alles las.</p>
@@ -2570,7 +2712,7 @@
     <p>Séraphine beobachtete das alles – ruhig, ohne Ungeduld. Als sie Valeries Hand nahm und sie durch die Menge führte drehte Valerie sich noch einmal um.</p>
     <p>Matthias stand noch dort. Die Hände in den Taschen. Ein Lächeln das er nicht ganz unterdrücken konnte.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Das Taxi roch nach Vanille und altem Leder.</p>
     <p>Sie saßen nebeneinander – nicht eng, aber nah. Séraphines Knie das Valeries berührte. Ihre Hände die zwischen ihnen lagen – nicht verschränkt, aber nah genug dass ihre Finger sich gelegentlich streiften.</p>
@@ -2604,7 +2746,7 @@
     <p>Sie schloss die Augen einen Moment. Spürte die Wärme seines Textes. Die Wärme von Séraphines Hand die noch immer auf ihrem Oberschenkel lag.</p>
     <p>Beides gleichzeitig. Beides echt.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Wohnung war im dritten Stock eines alten Gebäudes – hohe Decken, Holzdielen die leise knarzten, Bücher überall. Kerzen auf dem Fensterbrett die Séraphine mit einem Streichholz anzündete während Valerie in der Mitte des Raumes stand und nicht wusste wohin mit ihren Händen.</p>
     <p><span class="dialogue">„Wein?"</span> fragte Séraphine.</p>
@@ -2708,7 +2850,7 @@
     <p>Sie fielen auseinander – schwer atmend, lachend, ein leises ungläubiges Lachen das aus ihnen beiden herausbrach.</p>
     <p>Vollständig. Erschöpft. Wunderschön.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Stille danach war warm.</p>
     <p>Valerie die auf dem Rücken lag. Séraphine neben ihr. Ihre Finger die noch immer leicht Valeries Bauch streichelten.</p>
@@ -2761,7 +2903,7 @@
     <p><span class="dialogue">„Man merkt es nicht."</span></p>
     <p>Valerie lächelte. Legte sich neben sie. Schloss die Augen.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie lagen eine Weile still.</p>
     <p>Die Kerzen die fast heruntergebrannt waren. Séraphines Atem der ruhiger wurde. Valeries Gedanken die zu Matthias wanderten – wie er jetzt saß, was er dachte, wie sehr sie ihn liebte. Wie diese Nacht existieren durfte weil sie ihm vertraute. Weil er ihr vertraute.</p>
@@ -2797,7 +2939,7 @@
     <p>Hielt sie einfach.</p>
     <p class="thought"><em>Danke</em>, dachte Valerie. Sagte es nicht laut. Sie wusste Séraphine verstand.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Valerie rief ein Taxi.</p>
     <p>Séraphine die an der Tür stand – ihr Haar noch leicht zerzaust, ein leichtes Lächeln das sie nicht ganz verbergen konnte.</p>
@@ -2807,7 +2949,7 @@
     <p>Séraphine lachte – leise, warm. Küsste sie ein letztes Mal – sanft, kurz, ein Abschied der kein endgültiger war.</p>
     <p><span class="dialogue">„Geh zu ihm."</span></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Im Taxi tippte Valerie:</p>
     <p><span class="dialogue">„Ich komme nach Hause."</span></p>
@@ -2819,7 +2961,7 @@
     <p>Und gleichzeitig – die Vorfreude. Matthias der wach war. Der wartete.</p>
     <p class="thought"><em>Ich liebe dich</em>, dachte sie. <em>Ich komme.</em></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Wohnungstür.</p>
     <p>Er stand im Flur – in einem T-Shirt, barfuß. Sein Haar unordentlich. Seine Augen die sie sofort erfassten – von oben bis unten, alles lesend.</p>
@@ -2846,13 +2988,13 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
 
 
-<!-- GESCHICHTE 7 -->
+<!-- GESCHICHTE 6 -->
 <div class="chapter" id="geschichte6">
   <div class="chapter-header">
     <p class="chapter-label">Kapitel VI</p>
@@ -2907,7 +3049,7 @@
     <p>Sie hatte nicht entschieden zu gehen.</p>
     <p>Und war trotzdem gegangen.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Auf dem Gehweg blieb er kurz stehen. Schaute geradeaus.</p>
     <p><span class="dialogue">„Ich zeige dir etwas heute Nacht."</span> Eine Pause. <span class="dialogue">„Du kannst jederzeit gehen."</span></p>
@@ -2924,7 +3066,7 @@
     <p class="thought"><em>Oh Gott</em>, dachte sie.</p>
     <p>Und folgte weiter.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Der Club hatte kein Schild.</p>
     <p>Eine schwere Tür in einer Seitenstraße – dunkel, unscheinbar. Er klopfte einmal. Die Tür öffnete sich.</p>
@@ -2960,7 +3102,7 @@
     <p>Er nickte einmal.</p>
     <p>Und öffnete die Tür am Ende des Korridors.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Der Raum war dunkler als der Rest des Clubs.</p>
     <p>Größer als sie erwartet hatte. Hohe Decken, schwere Vorhänge an den Wänden, das Licht das von irgendwo unten kam – warm, rot, kaum genug um alles zu sehen aber mehr als genug um alles zu spüren.</p>
@@ -3119,7 +3261,7 @@
     <p>Als es vorbei war – stand er auf. Wischte sich das Gesicht ab. Schaute sie an.</p>
     <p><span class="dialogue">„Gut."</span></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Eine Pause. Ihre Arme die noch immer gebunden waren. Ihr Körper der zitterte.</p>
     <p>Er trat hinter sie.</p>
@@ -3145,7 +3287,7 @@
     <p><span class="dialogue">„Du bist meine kleine Hure"</span>, sagte er. <span class="dialogue">„Vor allen."</span></p>
     <p><span class="dialogue">„Ja"</span>, keuchte sie. <span class="dialogue">„Ja."</span></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er zog sich zurück.</p>
     <p>Sie keuchte. Dachte es wäre vorbei.</p>
@@ -3208,7 +3350,7 @@
     <p>Sie schrie.</p>
     <p>Und dann – kein Gedanke mehr. Nichts außer diesem Moment.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er zog das Kondom ab.</p>
     <p>Trat vor sie. Stand direkt vor ihr – sein Blick der sie ansah, kalt, absolut, besitzergreifend.</p>
@@ -3245,7 +3387,7 @@
     <p>Ging.</p>
     <p>Keine Worte. Kein Abschied. Kein Blick zurück.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Valerie die dort stand.</p>
     <p>Nackt. Erschöpft. Zitternd. Seinen Saft auf ihrer Haut der langsam kühlte. Ihren eigenen Saft der noch immer ihre Schenkel hinablief. Den Speichel auf ihrer Brust.</p>
@@ -3257,7 +3399,7 @@
     <p class="thought"><em>Das war ich</em>, dachte sie.</p>
     <p>Und zum ersten Mal in dieser ganzen Nacht – lächelte sie.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Das Taxi roch nach Leder und kalter Nachtluft.</p>
     <p>Sie lehnte sich zurück. Schloss die Augen.</p>
@@ -3279,7 +3421,7 @@
     <p class="thought"><em>Was war das</em>, dachte sie zum letzten Mal.</p>
     <p>Keine Antwort. Noch nicht.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Wohnungstür.</p>
     <p>Er stand im Flur – barfuß, sein Haar unordentlich. Als hätte er nicht geschlafen. Als hätte er gewartet ohne zu wissen auf was.</p>
@@ -3306,7 +3448,7 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
@@ -3335,7 +3477,7 @@
     <p>Die Wärme des Raumes auf ihrer Haut.</p>
     <p class="thought"><em>Ich liebe das</em>, dachte sie. <em>Ich liebe es wirklich.</em></p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er trat lautlos ein.</p>
     <p>Sie hörte ihn kaum – nur das leise Klicken der Tür, das Geräusch von Öl das er zwischen den Händen wärmte. Dann – seine Hände auf ihren Schultern.</p>
@@ -3493,7 +3635,7 @@
     <p>Nur seine Hände die jetzt ruhig ihren Rücken streichelten – sanft, gleichmäßig. Ein letztes Mal. Als Abschluss.</p>
     <p>Als wäre das alles ganz normal gewesen.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Irgendwann – sie wusste nicht wie lange – hörte die Musik auf.</p>
     <p>Ein leises Klopfen an der Tür. <span class="dialogue">„Sie können sich in Ruhe anziehen."</span></p>
@@ -3513,7 +3655,7 @@
     <p>Sie schaute noch einen Moment.</p>
     <p>Dann lächelte sie – leise, für sich.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Empfangsdame die aufsah als sie herauskam. <span class="dialogue">„Wie war es?"</span></p>
     <p><span class="dialogue">„Wunderschön"</span>, sagte Valerie. <span class="dialogue">„Wirklich wunderschön."</span></p>
@@ -3533,17 +3675,18 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
 
-<!-- GESCHICHTE 9 -->
+<!-- GESCHICHTE 8 -->
 <div class="chapter" id="geschichte8">
   <div class="chapter-header">
     <p class="chapter-label">Kapitel VIII</p>
     <h2 class="chapter-title">Ertappt</h2>
     <p class="chapter-location">Im Verborgenen</p>
+    <div class="chapter-divider"></div>
   </div>
   <div class="story">
 
@@ -3648,6 +3791,8 @@
     <p>Und das – sich selbst zu sehen wie er sie sah, und ihn zu sehen wie er sie wollte – das war es.</p>
     <p>Ihre Hand glitt tiefer. Sie zog das Höschen zur Seite, ganz, ohne Eile. Damit er alles sehen konnte. Ihre Pussy, geschwollen und nass, offen für seinen Blick.</p>
     <p>Sie hielt inne. Ließ es zu. Die warme Luft auf ihrer nassen Pussy – das Gefühl vollständig offen zu sein, gesehen zu werden, nichts verborgen. Ein Schauer der durch ihren ganzen Körper lief.</p>
+    <p>Ihre Hand wanderte. Zwei Finger, die in ihre Pussy glitten — tief, dann tiefer, bis sie sich selbst voll von innen spürte. Ihre Pussy, die sich um ihre eigenen Finger schloss, eng und nass, das Saft-Geräusch leise bei jedem Hineingleiten. Sie zog die Finger langsam wieder heraus — glänzend, triefend in der Sonne. Sein Blick darauf. Sie wusste was sie tat. Sie tat es für ihn.</p>
+    <p>Dann tiefer hinten. Ihre nassen Finger fanden ihren Po — ein Ort den sie noch nie allein berührt hatte. Sie zögerte einen Atemzug. Spürte ihn schauen. Dann drückte sie. Einen Finger zuerst, langsam, ihr eigener Saft als Gleitmittel. Sie spürte den Widerstand. Spürte das Nachgeben. Wie sich ihr Po um ihren Finger öffnete — eng, warm, von innen ein neues Spüren. Ihre Pussy die unter dem anderen Daumen pochte, fast eifersüchtig auf die zweite Empfindung. Ein Stöhnen das sie nicht zurückhalten konnte.</p>
     <p>Sie sah ihn – und sah wie er die Faust ballte. Sie sah ihn schlucken. Sah seinen Mund leicht öffnen, als wollte er etwas sagen, sagte aber nichts.</p>
     <p class="thought"><em>Das. Das ist es.</em></p>
     <p>Und die Erregung die sofort explodierte – stärker als alles zuvor. Ihre Clit die unter seinem Blick pochte als würde sie brennen. Sie wurde noch nasser in diesem Moment. Noch geschwollener. Als würde ihr Körper antworten – auf seine Augen, auf die Luft, auf dieses eine überwältigende Gefühl gesehen zu werden.</p>
@@ -3656,11 +3801,11 @@
     <p>Sie öffnete die Augen.</p>
     <p>Und da war er. Stand wo er stand. Sah sie wie er sie sah.</p>
     <p>War es derselbe? Sie konnte es immer noch nicht entscheiden. Aber jetzt – jetzt machte das die Sache nicht weniger heiß. Es machte sie heißer. Vielleicht war es er. Vielleicht ein anderer. Vielleicht – der Gedanke kam ungefragt – sah Matthias gerade durch seine Augen.</p>
-    <p>Sie ließ den Gedanken nicht zu Ende kommen. Ihre Finger arbeiteten weiter, schneller jetzt. Ihre Clit unter ihrer Hand brannte. So geschwollen, so nass dass jede Berührung fast zu viel war. Sie spürte wie Saft aus ihrer Pussy auf das Handtuch lief – warm, dick, unaufhaltsam. Eine kleine dunkle Stelle die größer wurde unter ihr. Das Wissen dass er sie so sah – offen, feucht, für ihn – das durch ihren ganzen Körper schoss.</p>
+    <p>Sie ließ den Gedanken nicht zu Ende kommen. Ihre beiden Hände arbeiteten weiter, schneller jetzt. Der Daumen ihrer einen Hand der ihre Clit fand, kreiste, presste. Der Finger der anderen Hand tief in ihrem Po — sie zog ihn langsam heraus, schob ihn wieder hinein, im selben Rhythmus wie der Daumen vorne. Zwei eigene Empfindungen, die sich gegenseitig hochtrieben — sie spürte sich selbst von zwei Seiten, in einem Tempo das nur sie kannte. Ihre Clit unter dem Daumen brannte. Ihr Po zog sich um ihren Finger zusammen, immer wieder, im Rhythmus ihrer eigenen Hand. So geschwollen, so nass dass jede Berührung fast zu viel war. Sie spürte wie Saft aus ihrer Pussy auf das Handtuch lief – warm, dick, unaufhaltsam. Eine kleine dunkle Stelle die größer wurde unter ihr. Das Wissen dass er sie so sah – offen, feucht, für ihn – das durch ihren ganzen Körper schoss.</p>
     <p>Sein Blick der alles aufnahm. Ruhig. Unverwandt.</p>
     <p>Etwas Heißes, Unaufhaltsames das in ihr aufstieg.</p>
     <p>Und dann – sie kam.</p>
-    <p>Laut. Lauter als sie wollte. Ein Schrei der ihr entkam, in den Wind, in die Hitze, in seinen Blick. Ihr Körper der sich aufbäumte – der Rücken vom Handtuch hochkam, die Hüfte gegen ihre eigene Hand drückte, die Beine die zitterten und sich öffneten weiter, weiter. Sie hörte sich selbst keuchen, stöhnen, ein Geräusch das nicht mehr zu kontrollieren war.</p>
+    <p>Laut. Lauter als sie wollte. Ein Schrei der ihr entkam, in den Wind, in die Hitze, in seinen Blick. Ihr Po der sich rhythmisch um ihren Finger zusammenzog, hart, immer wieder, jede Kontraktion eine eigene Welle — sie spürte sich selbst pulsen, von innen, von beiden Seiten. Ihre Pussy die zuckte, ihr Po der zuckte, alles gleichzeitig, alles für ihn. Ihr Körper der sich aufbäumte – der Rücken vom Handtuch hochkam, die Hüfte gegen ihre eigene Hand drückte, die Beine die zitterten und sich öffneten weiter, weiter. Sie hörte sich selbst keuchen, stöhnen, ein Geräusch das nicht mehr zu kontrollieren war.</p>
     <p>Ihre Pussy die unter ihren Fingern pulsierte – Welle nach Welle, jede stärker als die vorherige, ein Beben das durch ihren ganzen Körper lief und nicht aufhören wollte. Sie spürte wie Saft heraus floss, mehr als vorher, alles auf das Handtuch unter ihr.</p>
     <p>Ihre Augen offen die ganze Zeit. Sein Blick auf ihr die ganze Zeit. Er sah jeden Atemzug, jeden Krampf, jedes Pulsieren ihrer Pussy. Er sah sie kommen – und sie ließ ihn sehen.</p>
     <p>Sie sah ihn auch. Wie er einen Schritt nach vorne machte – ganz kurz, ein Reflex, dann hielt er sich. Wie seine Hand zur Hose ging – und sich wieder zurückzog. Wie er atmete – schwer, kontrolliert, aber sichtbar erregt.</p>
@@ -3704,11 +3849,12 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
-  <div class="chapter" id="geschichte9">
+  <!-- GESCHICHTE 9 -->
+<div class="chapter" id="geschichte9">
   <div class="chapter-header">
     <p class="chapter-label">Kapitel IX</p>
     <h2 class="chapter-title">Enthüllt</h2>
@@ -3728,7 +3874,7 @@
     <p class="thought"><em>Noch ein paar Stunden</em>, dachte sie. <em>Dann bin ich zuhause.</em></p>
     <p>Aber dann – ihr Blick der zu dem Mann neben ihr glitt.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Der Mann neben ihr – genauer: zwei Plätze weiter, der Fensterplatz auf der anderen Seite des freien Mittelsitzes – schlief. Oder schien zu schlafen.</p>
     <p>Sie hatte ihn beim Einsteigen bemerkt. Groß, ruhig, ein Gesicht das ihr gefiel ohne dass sie sagen konnte warum. Er hatte gelächelt als sie sich an ihm vorbeigedrückt hatte – kurz, echt. Sie hatte zurückgelächelt.</p>
@@ -3861,7 +4007,7 @@
     <p>Die Anstrengung den Laut zu halten – ihr Körper der schreien wollte und nicht durfte. Das Pressen der Lippen. Die Spannung die sich in ihr aufstaute während die Wellen nicht aufhörten.</p>
     <p>Vollständig. Lautlos. Überwältigend.</p>
 
-    <div class="section-break">· · ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Wellen die langsam verebbten.</p>
     <p>Aber seine Finger die nicht aufhörten. Die langsam weiterstrichen – sanft, geduldig. Sie zuckte zusammen bei jeder Berührung – so empfindlich, fast zu viel. Ihre Clit die pochte, hart, jede kleinste Berührung die durch ihren ganzen Körper schoss.</p>
@@ -3916,11 +4062,12 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
 <!-- GESCHICHTE 10 (provisorische Position) -->
+<!-- GESCHICHTE 10 -->
 <div class="chapter" id="geschichte10">
   <div class="chapter-header">
     <p class="chapter-label">Kapitel X</p>
@@ -3965,7 +4112,7 @@
     <p>Sie unter der Dusche – länger als sonst. Er stand im Türrahmen, die Tür einen Spalt offen, und sah ihren Schatten hinter dem Vorhang. Wie sie sich rasierte. Wie ihre Hände länger an manchen Stellen blieben. Wie sie irgendwann reglos stand, das Wasser über sich, in einer Pose die einfach nur war.</p>
     <p>Sie wusste dass er da war. Sie schaute nicht auf.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Vierzehn Uhr. Sie war nach oben gegangen. Hatte gesagt sie wolle sich kurz hinlegen.</p>
     <p>Im Schlafzimmer öffnete sie den Bademantel. Legte sich aufs Bett. Eine Hand zwischen ihren Schenkeln. Sie war schon nass bevor sie sich berührt hatte – seit dem Morgen, seit dem Wissen was abends passieren würde.</p>
@@ -3975,7 +4122,7 @@
     <p>Aber dann – wenn er sowieso da war – ließ sie es geschehen.</p>
     <p>Ein leises Stöhnen entkam ihr. Dann eines das nicht mehr ganz für sich allein war.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Unten am Küchentisch hörte Matthias.</p>
     <p>Er hatte zugesehen wie sie die Treppe hochstieg – im Bademantel, das Haar noch feucht. Hatte gehört wie die Schlafzimmertür sich schloss. Nicht ganz. Einen Spalt offen.</p>
@@ -3997,7 +4144,7 @@
     <p>Aber als sie an ihm vorbeiging, fuhr sie kurz mit der Hand durch seinen Nacken. Eine Berührung. Mehr nicht.</p>
     <p>Er schloss kurz die Augen.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Später. Sie in der Küche. Sie hatte sich nicht angezogen, nur den Bademantel weiter umgeworfen. Schnitt eine Birne in dünne Scheiben für ihren Joghurt – konzentriert, präzise, das Messer ruhig in ihrer Hand.</p>
     <p>Er lehnte am Türrahmen. Sah sie. Sagte nichts.</p>
@@ -4010,7 +4157,7 @@
     <p>Sie nickte zurück – langsam. Verstanden. Nahm den Joghurt.</p>
     <p>Im Vorbeigehen blieb sie kurz vor ihm stehen. Eine Sekunde. Ihre Hand fand sein Handgelenk – ein leichter Druck, mehr nicht. Sie schaute ihm nicht in die Augen. Dann ging sie weiter, die Treppe hoch.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sechzehn Uhr. Sie kam herunter im Bademantel, die Haare frisch gewaschen, das Gesicht ohne Make-up. Stellte sich vor den Spiegel im Flur. Schaute sich an.</p>
     <p>Er kam dazu. Stellte sich hinter sie. Legte seine Hände auf ihre Schultern.</p>
@@ -4027,7 +4174,7 @@
     <p>Er schluckte. <span class="dialogue">„Nichts. Nichts darunter."</span></p>
     <p>Sie lächelte. Küsste ihn auf die Wange – kurz, vertraut – und ging die Treppe wieder hoch.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Achtzehn Uhr.</p>
     <p>Er saß im Wohnzimmer. Hatte versucht zu lesen – ein Buch das er aufgeschlagen hatte und nach drei Seiten zur Seite legte.</p>
@@ -4039,7 +4186,7 @@
     <p>Er bewegte sich nicht. Berührte sich nicht.</p>
     <p>Atmete einfach. Und wartete.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Achtzehn Uhr dreißig. Er goss sich einen Whiskey ein – einen sehr kleinen. Saß auf dem Sofa und konnte nicht stillsitzen.</p>
     <p>Sie kam herunter.</p>
@@ -4071,7 +4218,7 @@
     <p>Etwas in seinen Augen veränderte sich. Nicht greifbar. Aber sichtbar. Eine leise Anerkennung. Als hätte er bereits ein Bild gehabt und das hier war besser.</p>
     <p>Valerie stand auf.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie ging zu ihm.</p>
     <p>Adrien lächelte. <span class="dialogue">„Valerie."</span></p>
@@ -4086,7 +4233,7 @@
     <p>Sie verstand. Nickte. Konnte nichts sagen.</p>
     <p>Matthias nahm die Weinflasche entgegen.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie saßen zu dritt im Wohnzimmer.</p>
     <p>Adrien in dem Sessel gegenüber. Valerie und Matthias auf dem Sofa, aber nicht eng beieinander – sie hatte sich auf eine Seite gesetzt, er auf die andere. Die Mitte des Sofas blieb leer. Eine Geste die Adrien sofort verstand.</p>
@@ -4100,7 +4247,7 @@
     <p>Sie nahm einen Schluck Wein.</p>
     <p>Adrien beobachtete sie dabei. Nicht aufdringlich. Einfach – aufmerksam.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie sprachen.</p>
     <p>Über Frankreich. Über Reisen. Adrien war in Lyon aufgewachsen, lebte seit zehn Jahren in Berlin. Architekt – gerade an einem Projekt in Frankfurt, eine Sanierung im Westend, deshalb sei er ein paar Wochen hier. Davor hatte er an einer Musikbibliothek in Kopenhagen gearbeitet, davor an einem Wohnturm in Mailand. Er reiste viel. Lebte mit dem.</p>
@@ -4113,7 +4260,7 @@
     <p>Sie lächelte. Ihre Wangen wurden warm.</p>
     <p>Matthias auf der anderen Seite des Sofas griff nach seinem Glas. Er sagte nichts. Aber Valerie sah aus dem Augenwinkel wie sich etwas in seinem Gesicht veränderte – ein Schlucken, ein Hineinatmen, das langsame Erkennen dass es jetzt anfing.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Adrien stellte sein Glas ab.</p>
     <p>Stand auf.</p>
@@ -4135,7 +4282,7 @@
     <p>Das Kleid auf ihrer nackten Haut wurde feucht zwischen ihren Schenkeln.</p>
     <p>Und auf der anderen Seite des Sofas: Matthias. Sah es. Spürte es. Hielt sein Glas fest – fester als nötig.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Adrien löste sich.</p>
     <p>Sah sie an. Sah dann an ihr vorbei – zu Matthias.</p>
@@ -4190,7 +4337,7 @@
     <p>Dann ging er die Treppe hoch.</p>
     <p>Langsam. Bewusst. Jeder Schritt ein eigener Atemzug.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Die Tür war offen.</p>
     <p>Er trat ein.</p>
@@ -4206,7 +4353,7 @@
     <p>Spürte sofort wie sein Schwanz gegen den Stoff seiner Hose drückte. Hart, ungeduldig, ein Pochen das er nicht mehr ignorieren konnte. Aber er bewegte sich nicht. Er würde sich nicht selbst berühren – nicht jetzt, nicht so. Diese Stunde war zum Schauen.</p>
     <p>Aber Gott war es schwer.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Adrien zog ihr das Kleid von den Schultern.</p>
     <p>Langsam. Es glitt von ihren Armen, fiel zu Boden um ihre Füße. Sie stand vollständig nackt vor ihm – das schwarze Kleid ein Kreis aus Stoff um ihre Knöchel, die dezente Kette an ihrem Hals der einzige Schmuck.</p>
@@ -4221,7 +4368,7 @@
     <p>Etwas in ihr antwortete sofort darauf. Diese Welle des Wissens dass er nicht nur zusah – dass er das wollte, dass er das brauchte, dass er gerade die intensivste Erfahrung seines Lebens machte.</p>
     <p>Sie wandte sich Adrien wieder zu.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Adrien zog seinen Pullover über den Kopf.</p>
     <p>Sein Oberkörper kam zum Vorschein.</p>
@@ -4236,7 +4383,7 @@
     <p>Adrien war wunderschön. Beschnitten. Glatt. Nicht riesig – aber perfekt geformt. Eine schöne Länge, eine angemessene Dicke, die Eichel klar und symmetrisch. Er war kein Spektakel. Er war Eleganz.</p>
     <p>Sie verstand sofort warum ihr Körper auf ihn so reagierte. Das war ein Schwanz der wusste was er konnte. Der nicht überwältigen musste, weil er trafen würde, jedes Mal.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie ließ sich auf die Knie sinken.</p>
     <p>Vor dem Bett. Auf dem Teppich. Adrien stand, sie kniete.</p>
@@ -4269,7 +4416,7 @@
     <p><span class="dialogue">„Tu es douée."</span></p>
     <p>Sie verstand. Lächelte zurück.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er zog sie hoch. Sanft. Legte sie aufs Bett.</p>
     <p>Sie lag auf dem Rücken, das Haar auf den Kissen, die Beine leicht geöffnet. Sie schaute zu Matthias – ein kurzer Blick. Er war noch immer im Sessel. Hatte sich nicht bewegt. Aber seine Hand lag jetzt auf seinem Glas. Hielt es fester als nötig. Seine Hose deutlich ausgebeult.</p>
@@ -4283,7 +4430,7 @@
     <p>Aber Valerie sah es. Wie er sich unmerklich vorbeugte. Wie sein Atem stockte. Wie seine Hand kurz zur eigenen Hose ging – und dann zurück. Er hielt sich.</p>
     <p>Adrien wandte sich wieder ihr zu.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Seine Zunge auf ihr.</p>
     <p>Erst nur eine Berührung – ein Streifen, eine Erkundung. Dann gründlicher. Er kostete sie wirklich – nahm sich Zeit, ließ seine Zunge durch ihre nassen Falten gleiten, fand ihre Clit, kreiste um sie herum bevor er sie direkt berührte.</p>
@@ -4328,7 +4475,7 @@
     <p>Sie öffnete die Augen wieder.</p>
     <p>Schaute zu Matthias.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Matthias.</p>
     <p>Im Sessel. Sein Kopf leicht geneigt. Sein Mund leicht offen. Eine Hand jetzt auf seinem Oberschenkel – nicht auf der Hose, aber nah, als hätte er sich verboten weiter zu gehen aber konnte nicht ganz still sitzen.</p>
@@ -4336,7 +4483,7 @@
     <p>Sie wusste es ohne hinzusehen. Wusste dass er sah – wie ein anderer Mann gerade in seine Frau geglitten war. Wusste was das mit ihm machte.</p>
     <p>Sie hielt seinen Blick als Adrien anfing sich zu bewegen.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Langsam. Erst nur ein leichtes Wiegen. Adrien zog sich kaum heraus, bewegte sich mehr in ihr als aus ihr – ein Rhythmus der jeden Millimeter ausnutzte. Sie spürte wie er sie streichelte von innen, mit jedem Stoß eine andere Stelle, mit jedem Stoß eine neue Empfindung.</p>
     <p>Ihre Pussy reagierte sofort. Schwoll nochmal an um ihn. Saft der frei lief, sie hörte das feuchte Geräusch zwischen ihnen, spürte wie ihre Schenkel feucht wurden.</p>
@@ -4351,7 +4498,7 @@
     <p>Seine Hand auf seinem Oberschenkel zuckte. Zur Hose. Zurück. Er hielt sich.</p>
     <p>Aber gerade so.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Adrien wurde langsam tiefer. Stärker.</p>
     <p>Sie spürte wie sich etwas in ihr aufbaute – nicht so schnell wie das erste Mal, aber tiefer. Aus einem anderen Ort. Eine Welle die durch ihren ganzen Unterleib zog, langsam, unaufhaltsam.</p>
@@ -4368,7 +4515,7 @@
     <p>Und Matthias.</p>
     <p>Sah alles.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie war noch im Nachhall, als Adrien sich aus ihr zurückzog.</p>
     <p>Sanft. Mit einer kleinen Pause. Dann setzte er sich aufs Bett.</p>
@@ -4383,7 +4530,7 @@
     <p>Sie atmete aus.</p>
     <p>Begann sich zu bewegen.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Diesmal führte sie.</p>
     <p>Adrien lehnte sich zurück, stützte sich auf die Hände hinter sich. Schaute sie an. Ließ sie machen.</p>
@@ -4398,7 +4545,7 @@
     <p>Aber sie hatte es gesehen.</p>
     <p>Lächelte breiter.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie bewegte sich schneller.</p>
     <p>Ihre Brüste zitterten mit jedem Stoß. Adrien hob eine Hand. Streichelte mit dem Daumen über eine Brustwarze. Sie keuchte auf, der Reiz schoss durch sie hindurch direkt zu ihrer Clit.</p>
@@ -4414,7 +4561,7 @@
     <p><span class="dialogue">„Take me from behind."</span></p>
     <p>Adrien lächelte langsam. Eine Anerkennung. Diese Frau wusste was sie wollte.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie stieg von ihm.</p>
     <p>In dem Moment – der kurze Augenblick zwischen ihrem Aufstehen und dem Sich-Umdrehen – sah Matthias es.</p>
@@ -4437,22 +4584,24 @@
     <p>Und sie sah Matthias.</p>
     <p>Sah wie er jeden Stoß mitnahm. Sah wie sein Mund offen war. Sah wie sein Atem zerfiel. Sah wie er an seine Grenze kam ohne sich selbst zu berühren.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Adrien wurde härter. Sicherer. Sie spürte wie seine Hand auf ihrer Schulter fester wurde, wie er sich gegen seinen eigenen Höhepunkt arbeitete.</p>
-    <p>Und sie – sie spürte den ihren wieder kommen.</p>
+    <p>Und dann — seine Hand glitt von ihrer Schulter herab. Strich über ihren Rücken. Fand ihren Po. Sie hielt den Atem an. Sein Daumen sammelte ihren Saft, der zwischen ihren Schenkeln hinunterlief — sie spürte wie er glitschig wurde. Dann strich er sanft über ihren Anus, kreiste, prüfte. Ein tiefer Laut entkam ihr, ins Laken hinein. Ihre Finger krallten sich in den Stoff. Sein Finger glitt in sie hinein — langsam, unaufhaltsam, mit derselben Geduld wie sein Schwanz vorne. Tief, warm, neben dem Schwanz der schon in ihr war, nur eine dünne Haut zwischen beiden. Sie konnte sich selbst spüren, von innen, an zwei Stellen gleichzeitig. Wie ihre Pussy sich enger um Adrien zog. Wie ihr Po sich enger um seinen Finger zog. Wie jeder seiner Stöße jetzt anders war — voller, präsenter, unausweichlich.</p>
+    <p>Ihr Körper wusste nicht mehr was er zuerst wollte. Wusste nur: mehr. Alles. Beides.</p>
+    <p>Und sie spürte, wie ihr eigener Höhepunkt sich wieder aufbaute — schneller diesmal, getrieben von der doppelten Empfindung. Tiefer aus ihrem Körper kommend als die ersten beiden Male — als hätte Adrien einen Ort in ihr gefunden, an dem alles zusammenlief. Die Welle baute sich auf, aber sie konnte nicht sagen wo. Vorne, hinten, in der Mitte — überall gleichzeitig.</p>
     <p>Diesmal anders. Tiefer aufgebaut. Aus dem ganzen Abend, aus allem was gewesen war, aus dem Wissen dass Matthias zusah.</p>
     <p><span class="dialogue">„Matthias –"</span></p>
     <p>Sie sagte seinen Namen.</p>
     <p>Nur seinen.</p>
-    <p>Sah ihn an als sie kam. Hielt seinen Blick durch jede Welle. Ihr ganzer Körper der sich um Adrien zusammenzog – aber ihre Augen, ihr Bewusstsein, alles davon war bei Matthias.</p>
+    <p>Sah ihn an als sie kam. Hielt seinen Blick durch jede Welle. Ihr ganzer Körper der sich um Adrien zusammenzog — Pussy um seinen Schwanz, Po um seinen Finger — aber ihre Augen, ihr Bewusstsein, alles davon war bei Matthias.</p>
     <p>Es war als würde sie für ihn kommen. Mit einem anderen Mann in ihr. Aber für ihn.</p>
     <p>Sie sah wie er es verstand. Wie etwas in ihm losging das er nicht mehr aufhalten konnte. Ein leiser Laut entkam ihm – fast ein Stöhnen, fast ein Schluchzen.</p>
     <p>Aber er hielt durch.</p>
     <p>Berührte sich nicht.</p>
     <p>Saß und sah und nahm es auf.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Adrien hielt nicht mehr lange durch.</p>
     <p>Sie spürte wie er anders wurde – schneller, weniger kontrolliert. Sein Atem an ihrem Rücken. Ein Laut den er bis jetzt zurückgehalten hatte.</p>
@@ -4467,7 +4616,7 @@
     <p>Und schaute Matthias an.</p>
     <p>Sah wie er sah. Wie er sah dass ein anderer Mann gerade auf seine Frau gekommen war. Wie er das aufnahm, wie er das ihm einbrannte, wie er das niemals vergessen würde.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Adrien atmete schwer.</p>
     <p>Sie blieb noch einen Moment so – auf allen vieren, sein Sperma warm auf ihrer Haut. Dann sank sie langsam zur Seite, drehte sich auf den Rücken.</p>
@@ -4488,7 +4637,7 @@
     <p><span class="dialogue">„Ich bringe Sie nach unten."</span></p>
     <p>Adrien nickte.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie gingen die Treppe hinunter. Schweigend. Im Flur drehte Adrien sich um.</p>
     <p><span class="dialogue">„Thank you. Both of you."</span></p>
@@ -4521,7 +4670,7 @@
     <p>Sie schloss die Augen. Drückte ihr Gesicht in seine Handfläche.</p>
     <p>Etwas in ihm brach.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er beugte sich vor. Küsste sie.</p>
     <p>Und schmeckte ihn sofort.</p>
@@ -4535,7 +4684,7 @@
     <p>Er stöhnte gegen ihren Mund.</p>
     <p><span class="dialogue">„Zieh dich aus"</span>, sagte sie leise.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er stand auf. Riss sich die Sachen vom Leib – schnell, ohne Zeremonie. Hemd. Hose. Boxershorts. Auf den Boden.</p>
     <p>Sein Schwanz sprang frei – aufrecht, hart, vom langen Warten dunkel und mit einer feuchten Spitze. Saft der schon lange gelaufen war ohne dass er ihn berührt hatte.</p>
@@ -4545,7 +4694,7 @@
     <p>Sie streckte die Hand nach ihm aus.</p>
     <p><span class="dialogue">„Ich will dich spüren."</span></p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er kletterte zu ihr aufs Bett.</p>
     <p>Sie drehte sich auf den Bauch. Hob ihren Po. Auf Hände und Knie – die Position in der Adrien sie zuletzt gehabt hatte. Genau die Position. Die Bettwäsche unter ihr noch feucht.</p>
@@ -4561,7 +4710,7 @@
     <p>So viel anders als das was er erwartet hatte. Sie war anders. Geöffneter. Weicher. Noch lockerer von Adrien. Aber das machte es nicht weniger – es machte es mehr. Er spürte sie jetzt an Stellen die anders waren. Spürte Adriens Spuren als Geometrie in ihr. Diese direkte Hitze, dieses Gefühl von Haut auf Haut, von ihm in ihr ohne Barriere.</p>
     <p>Er begann sich zu bewegen. Hart. Tief. Ohne Geduld. Stunden des Wartens entluden sich in jedem Stoß.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p><span class="dialogue">„Erzähl mir."</span></p>
     <p>Seine Stimme rau an ihrem Ohr. Er hatte sich vorgebeugt – sein Mund nah an ihrem Hals, seine Brust gegen ihren Rücken.</p>
@@ -4583,7 +4732,7 @@
     <p><span class="dialogue">„Auch dann. Vor allem dann. Ich habe an dich gedacht. Ich habe ihn für dich genommen."</span></p>
     <p>Etwas in ihm brach. Ein Laut. Halb Stöhnen, halb Schluchzen.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er drehte sie auf den Rücken.</p>
     <p>In einer einzigen Bewegung – er wollte sie sehen. Brauchte ihr Gesicht.</p>
@@ -4593,6 +4742,9 @@
     <p><span class="dialogue">„Ich schaue."</span></p>
     <p>Er bewegte sich – tief, rhythmisch. Jeder Stoß vollständig. Jeder Stoß ein Anspruch.</p>
     <p>Sie hob die Beine, schlang sie um seine Hüften. Zog ihn tiefer in sich.</p>
+    <p>Eine Hand wanderte seinen Rücken hinab — weiter als sie je gewandert war. Etwas was sie heute Abend gelernt hatte. Etwas was sie ihm mitbrachte. Ihre Finger fanden seinen Po, prüften, strichen sanft entlang. Matthias stockte. Sah sie an. Sie hielt seinen Blick und ließ den Daumen weiterkreisen — ohne Hast, ohne Worte. Eine Frage, die er sofort verstand.</p>
+    <p>Er atmete einmal aus. Lang. Lehnte sich ein winziges Stück gegen ihre Hand. Stieß tiefer. Anders. Härter.</p>
+    <p>Ihr Finger drang langsam ein — ein einziger, vorsichtig. Sie spürte ihn an einer Stelle, die nur ihr gehörte ab jetzt. Eng, warm, neu. Sie hielt die Bewegung an, einen Atemzug lang. Spürte ihn um sich. Sie spürte ihn anders um ihren Finger. Spürte ihn anders in ihrer Pussy. Beide Empfindungen gleichzeitig — aber bei ihm, in ihm, das erste Mal.</p>
     <p><span class="dialogue">„Ich liebe dich"</span>, flüsterte sie. <span class="dialogue">„Das hier – das war alles für uns."</span></p>
     <p><span class="dialogue">„Ich weiß."</span></p>
     <p>Sein Atem zerfiel. Seine Stöße wurden unregelmäßiger. Sie spürte wie er kurz war.</p>
@@ -4626,11 +4778,12 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
 <!-- GESCHICHTE 11 (Erbeutet - Roh) -->
+<!-- GESCHICHTE 11 -->
 <div class="chapter" id="geschichte11">
   <div class="chapter-header">
     <p class="chapter-label">Kapitel XI</p>
@@ -4816,7 +4969,7 @@
     <p>Sie waren allein.</p>
     <p>Damian drehte sich zu ihr.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Er war zu nah sofort.</p>
     <p>Eine Hand fand ihre Hüfte. Die andere ihren Nacken. Er drehte ihren Kopf, leicht, prüfend – und küsste sie.</p>
@@ -4912,7 +5065,7 @@
     <p>Sie konnte sich nicht zurückziehen wenn sie wollte.</p>
     <p>Sie wollte nicht. Im Gegenteil – die Festigkeit machte etwas mit ihr. Ein Erkennen: dieser Mann hatte Kraft. Wenn er entschied dass sie blieb, blieb sie. Sie war hier. Sie hatte das gewählt. Und dieser kleine erste Beweis seiner Kraft schickte einen Schauer durch sie.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Damian löste sich von ihrer Brust. Schaute hoch zu ihr.</p>
     <p>Sie atmete schnell. Ihre Brustwarzen rot, geschwollen, leicht feucht von seinem Mund.</p>
@@ -5002,7 +5155,7 @@
     <p>Sie verstand etwas in dem Moment.</p>
     <p>Diese Nacht würde lang werden.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Damian stieß weiter. Tief, vollständig, mit dieser unermüdlichen Disziplin die er offenbar überall hatte – im Wasser, im Käfig, hier.</p>
     <p>Sie keuchte unter ihm. Spürte wie ihr Körper sich nach dem ersten Orgasmus nicht beruhigte – sondern weiter aufbaute. Eine zweite Welle die sich anders anfühlte: tiefer, breiter, schwerer.</p>
@@ -5110,7 +5263,7 @@
     <p>Sein Schwanz auf Höhe ihres Gesichts.</p>
     <p><span class="dialogue">„Mund auf."</span></p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p>Sie sah zu ihm hoch. Sein Schwanz vor ihrem Gesicht – glänzend von ihrem Saft, von ihrem Squirt, hart aufgerichtet.</p>
     <p>Sie öffnete den Mund.</p>
@@ -5279,7 +5432,7 @@
     <p>Sie wischte sie mit dem Handrücken weg. Legte das Handy auf den Nachttisch.</p>
     <p>Vom Bad hörte sie das Wasser noch laufen.</p>
 
-    <div class="section-break">·  ·  ·</div>
+    <div class="section-break">✦</div>
 
     <p><strong>Sonntagmorgen.</strong></p>
     <p>Sie wachte allein auf in ihrem Hotelzimmer.</p>
@@ -5434,7 +5587,7 @@
 
   </div>
   <div class="story-end">
-    <span class="heart">♥</span>
+    <span class="heart">♡</span>
   </div>
 </div>
 
@@ -5445,6 +5598,7 @@
     <p class="chapter-label">Kapitel XII</p>
     <h2 class="chapter-title">Eingenommen</h2>
     <p class="chapter-location">Macht</p>
+    <div class="chapter-divider"></div>
   </div>
   <div class="story">
 
@@ -6723,7 +6877,7 @@
   </div>
 </div>
 <div class="story-end">
-  <span class="heart">♥</span>
+  <span class="heart">♡</span>
 </div>
 
 
@@ -6733,6 +6887,7 @@
     <p class="chapter-label">Kapitel XIII</p>
     <h2 class="chapter-title">Entflammt</h2>
     <p class="chapter-location">Sommer</p>
+    <div class="chapter-divider"></div>
   </div>
   <div class="story">
 
@@ -8351,17 +8506,19 @@
   </div>
 </div>
 <div class="story-end">
-  <span class="heart">♥</span>
+  <span class="heart">♡</span>
 </div>
 
 
 
 
+<!-- GESCHICHTE 14 -->
 <div class="chapter" id="geschichte14">
   <div class="chapter-header">
     <p class="chapter-label">Kapitel XIV</p>
     <h2 class="chapter-title">Empfangen</h2>
     <p class="chapter-location">Verbündet</p>
+    <div class="chapter-divider"></div>
   </div>
   <div class="story">
 
@@ -8860,7 +9017,7 @@
   </div>
 </div>
 <div class="story-end">
-  <span class="heart">♥</span>
+  <span class="heart">♡</span>
 </div>
 
 <!-- NACHWORT -->
